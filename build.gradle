@@ -1,0 +1,72 @@
+
+group = 'com.woowa'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+buildscript {
+    ext {
+        javaVersion = '11'
+        springBootVersion = '2.7.5'
+        springCloudVersion = '2021.0.5'
+    }
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE"
+        classpath group: 'org.sonarsource.scanner.gradle', name: 'sonarqube-gradle-plugin', version: '3.3'
+    }
+}
+
+def demoProjects = subprojects - project(':clients')
+configure(demoProjects) {
+    apply plugin: 'java'
+    apply plugin: 'java-library'
+    apply plugin: 'idea'
+    apply plugin: 'jacoco'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
+
+    dependencies {
+        implementation "org.projectlombok:lombok:1.18.22"
+        implementation "com.fasterxml.jackson.core:jackson-databind"
+        implementation "com.fasterxml.jackson.core:jackson-core"
+        implementation "com.fasterxml.jackson.core:jackson-annotations"
+
+        annotationProcessor 'org.projectlombok:lombok:1.18.22'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+        implementation 'org.springframework.boot:spring-boot-starter'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        
+        testImplementation(testFixtures(project(':clients:client-core')))
+    }
+}
+
+def clientProjects = project(':clients').subprojects - project(':clients:client-core')
+configure(clientProjects) {
+
+    dependencies {
+        implementation(project(':clients:client-core'))
+    }
+}
