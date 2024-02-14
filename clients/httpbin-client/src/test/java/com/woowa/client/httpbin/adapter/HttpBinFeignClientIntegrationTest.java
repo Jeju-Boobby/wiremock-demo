@@ -1,18 +1,15 @@
 package com.woowa.client.httpbin.adapter;
 
 import com.woowa.client.httpbin.response.AnythingResponse;
+import com.woowa.client.support.WireMockSupport;
 import org.apache.logging.log4j.util.Strings;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.function.Function;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class HttpBinFeignClientIntegrationTest {
+class HttpBinFeignClientIntegrationTest extends WireMockSupport {
     @Autowired
     HttpBinFeignClient httpBinFeignClient;
 
