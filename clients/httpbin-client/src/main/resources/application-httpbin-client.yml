@@ -13,3 +13,13 @@ feign:
 client:
   httpbin-api:
     access-url: http://httpbin.org
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+
+client:
+  httpbin-api:
+    access-url: http://localhost:${wiremock.server.port}
