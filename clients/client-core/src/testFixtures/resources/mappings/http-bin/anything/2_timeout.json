@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/anything/2"
+  },
+  "response": {
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "status": 200,
+    "fixedDelayMilliseconds": 3500,
+    "jsonBody": {
+      "data": ""
+    }
+  }
+}

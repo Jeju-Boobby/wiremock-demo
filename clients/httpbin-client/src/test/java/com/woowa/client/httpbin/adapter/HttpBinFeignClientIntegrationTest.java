@@ -7,7 +7,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.net.SocketTimeoutException;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 class HttpBinFeignClientIntegrationTest extends WireMockSupport {
     @Autowired
@@ -26,5 +29,18 @@ class HttpBinFeignClientIntegrationTest extends WireMockSupport {
                 .as("data 가 비어있음")
                 .extracting(AnythingResponse::getData)
                 .isEqualTo(Strings.EMPTY);
+    }
+
+    @Test
+    @DisplayName("getAnythingById 2 Timeout 발생")
+    void getAnythingById_2() {
+        // when
+        Throwable throwable = catchThrowable(() -> httpBinFeignClient.getAnythingById(2L));
+
+        // then
+        assertThat(throwable)
+                .as("SocketTimeoutException 발생")
+                .hasCauseInstanceOf(SocketTimeoutException.class)
+                .hasMessageContaining("Read timed out");
     }
 }
