@@ -1,0 +1,16 @@
+{
+  "priority": 9999,
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/anything/([0-9]+)"
+  },
+  "response": {
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "status": 200,
+    "jsonBody": {
+      "data": ""
+    }
+  }
+}

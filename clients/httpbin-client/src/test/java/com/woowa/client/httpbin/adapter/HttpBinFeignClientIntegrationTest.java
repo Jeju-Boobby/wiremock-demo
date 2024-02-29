@@ -43,4 +43,19 @@ class HttpBinFeignClientIntegrationTest extends WireMockSupport {
                 .hasCauseInstanceOf(SocketTimeoutException.class)
                 .hasMessageContaining("Read timed out");
     }
+
+    @Test
+    @DisplayName("getAnythingById 123123 기본 응답 조회")
+    void getAnythingById_3() {
+        // when
+        AnythingResponse response = httpBinFeignClient.getAnythingById(123123L);
+
+        // then
+        assertThat(response)
+                .as("응답이 null 이 아님")
+                .isNotNull()
+                .as("data 가 비어있음")
+                .extracting(AnythingResponse::getData)
+                .isEqualTo(Strings.EMPTY);
+    }
 }
