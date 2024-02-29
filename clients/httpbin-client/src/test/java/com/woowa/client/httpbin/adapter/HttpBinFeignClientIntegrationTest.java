@@ -1,5 +1,6 @@
 package com.woowa.client.httpbin.adapter;
 
+import com.woowa.client.httpbin.request.AnythingRequest;
 import com.woowa.client.httpbin.response.AnythingResponse;
 import com.woowa.client.support.WireMockSupport;
 import org.apache.logging.log4j.util.Strings;
@@ -49,6 +50,23 @@ class HttpBinFeignClientIntegrationTest extends WireMockSupport {
     void getAnythingById_3() {
         // when
         AnythingResponse response = httpBinFeignClient.getAnythingById(123123L);
+
+        // then
+        assertThat(response)
+                .as("응답이 null 이 아님")
+                .isNotNull()
+                .as("data 가 비어있음")
+                .extracting(AnythingResponse::getData)
+                .isEqualTo(Strings.EMPTY);
+    }
+
+    @Test
+    @DisplayName("postAnything 정상 호출")
+    void postAnything_1() {
+        // given
+        AnythingRequest request = new AnythingRequest("test");
+        // when
+        AnythingResponse response = httpBinFeignClient.postAnything(request);
 
         // then
         assertThat(response)

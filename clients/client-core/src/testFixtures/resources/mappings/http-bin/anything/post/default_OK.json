@@ -1,0 +1,21 @@
+{
+  "priority": 9999,
+  "request": {
+    "method": "POST",
+    "urlPath": "/anything",
+    "bodyPatterns" : [ {
+      "equalToJson" : {
+        "data": "${json-unit.any-string}"
+      }
+    } ]
+  },
+  "response": {
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "status": 200,
+    "jsonBody": {
+      "data": ""
+    }
+  }
+}
