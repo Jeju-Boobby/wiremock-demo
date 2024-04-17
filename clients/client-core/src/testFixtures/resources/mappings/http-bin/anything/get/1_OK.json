@@ -1,7 +1,12 @@
 {
   "request": {
     "method": "GET",
-    "urlPath": "/anything/1"
+    "urlPath": "/anything/1",
+    "headers": {
+      "type": {
+        "equalTo": "http-bin"
+      }
+    }
   },
   "response": {
     "headers": {

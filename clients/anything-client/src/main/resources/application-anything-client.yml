@@ -1,0 +1,25 @@
+spring:
+  config:
+    import:
+      - classpath:application-client-core.yml
+
+feign:
+  client:
+    config:
+      anythingClient:
+        connectTimeout: 1000
+        readTimeout: 3000
+
+client:
+  anything-api:
+    access-url: http://anything.org
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+
+client:
+  anything-api:
+    access-url: http://localhost:${wiremock.server.port}

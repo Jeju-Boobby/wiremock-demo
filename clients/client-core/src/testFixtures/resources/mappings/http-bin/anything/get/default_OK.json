@@ -2,7 +2,12 @@
   "priority": 9999,
   "request": {
     "method": "GET",
-    "urlPathPattern": "/anything/([0-9]+)"
+    "urlPathPattern": "/anything/([0-9]+)",
+    "headers": {
+      "type": {
+        "equalTo": "http-bin"
+      }
+    }
   },
   "response": {
     "headers": {

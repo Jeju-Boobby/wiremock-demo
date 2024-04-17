@@ -1,5 +1,6 @@
 rootProject.name = 'wiremock-demo'
 include 'clients:client-core'
 include 'clients:httpbin-client'
+include 'clients:anything-client'
 include 'applications:internal-api'
 
